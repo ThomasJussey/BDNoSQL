@@ -84,12 +84,12 @@ def display_voisin(valeur_proteine,var_poids,frame,canvas,vbar,mylist):
             canvas.create_text(100,y, text=liste_voisin[i],tag="efface")
         '''
 
-        mylist.insert(END, "Nombre(s) de voisins : "+str(len(liste_voisin)))
+        mylist.insert(END, "Nombre de voisins : "+str(len(liste_voisin)))
         for i in range(0,len(liste_voisin)):
             mylist.insert(END, liste_voisin[i])
 
         mylist.pack()
-        canvas.create_text(100,10, text="Nombre(s) de voisins : "+str(len(liste_voisin)),tag="efface")
+        canvas.create_text(100,10, text="Nombre de voisins : "+str(len(liste_voisin)),tag="efface")
         vbar.config(command=mylist.yview)
 
     elif var_poids.get() == 1 :
@@ -107,7 +107,7 @@ def display_voisin(valeur_proteine,var_poids,frame,canvas,vbar,mylist):
             y = y+15
             canvas.create_text(100,y, text=liste_voisin[i]+" %.2f" % float(liste_poids[i]),tag="efface")
         '''
-        mylist.insert(END, "Nombre(s) de voisins : "+str(len(liste_voisin)))
+        mylist.insert(END, "Nombre de voisins : "+str(len(liste_voisin)))
         for i in range(0,len(liste_voisin)):
             mylist.insert(END, liste_voisin[i]+" %.2f" % float(liste_poids[i]))
 
@@ -144,7 +144,7 @@ panneau_horizontal.pack()
 def display_domaine(valeur_proteine_domaine,canvas_domaine):
     canvas_domaine.delete("efface_domaine")
     liste_domaine = query.domaine_protein_interface(valeur_proteine_domaine.get())
-    canvas_domaine.create_text(100,10, text="Nombre(s) de voisins : "+str(len(liste_domaine)),tag="efface_domaine")
+    canvas_domaine.create_text(100,10, text="Nombre de domaines : "+str(len(liste_domaine)),tag="efface_domaine")
     y = 20
     for i in range(0,len(liste_domaine)):
         y = y+15
