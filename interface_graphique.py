@@ -18,11 +18,11 @@ fenetre.title("Querying interface")
 
 global value
 ###############################################################################
-# Frame pour la requête du nombre de proteines
+# Frame pour les statistiques
 ###############################################################################
 Frame1 = Frame(fenetre, borderwidth=2, relief=GROOVE)
 Frame1.pack(side=LEFT, padx=20, pady=20,anchor="n")
-titre_nb_proteine =Label(Frame1, text="Nombre de proteines",height = 1, width = 34)
+titre_nb_proteine =Label(Frame1, text="Nombre de proteine(s)",height = 1, width = 34)
 titre_nb_proteine.pack(side = TOP,anchor="w")
 
 def display_number_protein(label):
@@ -35,6 +35,43 @@ boutton.pack(side=TOP,padx =3, pady =3)
 label = Label(Frame1, text=" ",height = 2, width = 33)
 label.pack(side = TOP,anchor="w")
 
+
+titre_nombre_relation = Label(Frame1, text="Nombre de relation(s)",height = 1, width = 34)
+titre_nombre_relation.pack(side = TOP,anchor="w")
+boutton_nombre_relation = Button(Frame1,text ='Calculer',command=lambda :display_nombre_relation(label_nombre_relation),height = 1, width = 10)
+boutton_nombre_relation.pack(side=TOP,padx =3, pady =3)
+label_nombre_relation = Label(Frame1, text=" ",height = 2, width = 33)
+label_nombre_relation.pack(side = TOP,anchor="w")
+
+def display_nombre_relation(label_nombre_relation):
+    label_nombre_relation.configure(text=str(query.number_of_relation_interface()/2))
+
+
+titre_moyenne_voisin =Label(Frame1, text="Nombre moyen de voisin(s)",height = 1, width = 34)
+titre_moyenne_voisin.pack(side = TOP,anchor="w")
+boutton_moyenne_voisin = Button(Frame1,text ='Calculer',command=lambda :display_moyenne_voisin(label_moyenne_voisin),height = 1, width = 10)
+boutton_moyenne_voisin.pack(side=TOP,padx =3, pady =3)
+label_moyenne_voisin = Label(Frame1, text=" ",height = 2, width = 33)
+label_moyenne_voisin.pack(side = TOP,anchor="w")
+
+def display_moyenne_voisin(label_moyenne_voisin):
+    label_moyenne_voisin.configure(text=str(query.moyenne_nombre_voisin()))
+
+
+titre_nombre_domaine=Label(Frame1, text="Nombre moyen de domaine(s)",height = 1, width = 34)
+titre_nombre_domaine.pack(side = TOP,anchor="w")
+boutton_nombre_domaine = Button(Frame1,text ='Calculer',command=lambda :display_nombre_domaine(label_nombre_domaine),height = 1, width = 10)
+boutton_nombre_domaine.pack(side=TOP,padx =3, pady =3)
+label_nombre_domaine = Label(Frame1, text=" ",height = 2, width = 33)
+label_nombre_domaine.pack(side = TOP,anchor="w")
+
+def display_nombre_domaine(label_nombre_domaine):
+    label_nombre_domaine.configure(text=str(query.moyenne_domaine()))
+
+    
+    
+    
+    
 ###############################################################################
 # Frame pour la requête des voisins et du score associé
 ###############################################################################

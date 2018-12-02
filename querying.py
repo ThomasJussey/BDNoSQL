@@ -9,7 +9,7 @@ Created on Thu Nov 29 18:31:17 2018
 from neo4j import GraphDatabase
 
 uri = "bolt://localhost:7687"
-driver = GraphDatabase.driver(uri, auth=("test", "test"))
+driver = GraphDatabase.driver(uri, auth=("neo4j", "jkrpczcz"))
 
 
 ###############################################################################
@@ -23,6 +23,50 @@ def number_of_protein_interface() :
     with driver.session() as session:
         a = session.read_transaction(number_of_protein)
     return a
+
+
+
+###############################################################################
+# FONCTION nombre de relation et moyenne du nombre de voisin
+###############################################################################
+
+
+def moyenne_nombre_voisin():
+    nombre_relation = int(number_of_relation_interface()) / 2
+    return (nombre_relation / number_of_protein_interface() )
+    
+        
+def number_of_relation(tx):
+    for record in tx.run("MATCH (n:Protein)-[r:link]-(b:Protein) RETURN count(r)"):
+        return record["count(r)"]
+
+def number_of_relation_interface() :
+    with driver.session() as session:
+        a = session.read_transaction(number_of_relation)
+    return a
+
+###############################################################################
+# FONCTION moyenne des domaines
+###############################################################################
+    
+def moyenne_domaine():
+    compteur_domaine = 0
+    liste_proteine = name_of_protein_interface()
+    for proteine in liste_proteine:
+        compteur_domaine = compteur_domaine + len(domaine_protein_interface(str(proteine)))   
+    return compteur_domaine / len(liste_proteine)
+    
+
+def name_of_protein(tx):
+    result = tx.run("match (n:Protein) return n.name")
+    return [record["n.name"] for record in result]
+
+def name_of_protein_interface() :
+    with driver.session() as session:
+        a = session.read_transaction(name_of_protein)
+    return a
+
+
 
 ###############################################################################
 # FONCTION voisins de proteine
@@ -69,4 +113,5 @@ def domaine_protein_interface(name) :
         a = session.read_transaction(domaine_protein,name)
     return a
 
-a = domaine_protein_interface("B7SFZ3")
+
+a = moyenne_domaine()
