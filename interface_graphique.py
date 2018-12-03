@@ -68,7 +68,6 @@ label_nombre_domaine.pack(side = TOP,anchor="w")
 def display_nombre_domaine(label_nombre_domaine):
     label_nombre_domaine.configure(text=str(query.moyenne_domaine()))
 
-    
 titre_nombre_labelisee=Label(Frame1, text="Nombre de proteine(s) labélisée(s)",height = 1, width = 34)
 titre_nombre_labelisee.pack(side = TOP,anchor="w")
 boutton_nombre_labelisee = Button(Frame1,text ='Calculer',command=lambda :display_nombre_labelisee(label_nombre_labelisee),height = 1, width = 10)
@@ -78,8 +77,8 @@ label_nombre_labelisee.pack(side = TOP,anchor="w")
 
 def display_nombre_labelisee(label_nombre_labelisee):
     label_nombre_labelisee.configure(text=str(query.nombre_labelisee_interface()))
-    
-    
+
+
 titre_nombre_non_labelisee=Label(Frame1, text="Nombre de proteine(s) non labélisée(s)",height = 1, width = 34)
 titre_nombre_non_labelisee.pack(side = TOP,anchor="w")
 boutton_nombre_non_labelisee = Button(Frame1,text ='Calculer',command=lambda :display_nombre_non_labelisee(label_nombre_non_labelisee),height = 1, width = 10)
@@ -91,8 +90,19 @@ def display_nombre_non_labelisee(abel_nombre_non_labelisee):
     nombre_proteine = query.number_of_protein_interface()
     nombre_proteine_labelisee = query.nombre_labelisee_interface()
     difference = nombre_proteine - nombre_proteine_labelisee
-    label_nombre_non_labelisee.configure(text=str(difference)) 
-    
+    label_nombre_non_labelisee.configure(text=str(difference))
+
+titre_nombre_isole=Label(Frame1, text="Nombre de protéines isolées",height = 1, width = 34)
+titre_nombre_isole.pack(side = TOP,anchor="w")
+boutton_nombre_isole = Button(Frame1,text ='Calculer',command=lambda :display_nombre_isole(label_nombre_isole),height = 1, width = 10)
+boutton_nombre_isole.pack(side=TOP,padx =3, pady =3)
+label_nombre_isole = Label(Frame1, text=" ",height = 2, width = 33)
+label_nombre_isole.pack(side = TOP,anchor="w")
+
+def display_nombre_isole(label_nombre_isole):
+    label_nombre_isole.configure(text=str(query.nombre_isole_interface()))
+
+
 ###############################################################################
 # Frame pour la requête des voisins et du score associé
 ###############################################################################

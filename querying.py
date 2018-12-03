@@ -9,7 +9,7 @@ Created on Thu Nov 29 18:31:17 2018
 from neo4j import GraphDatabase
 
 uri = "bolt://localhost:7687"
-driver = GraphDatabase.driver(uri, auth=("neo4j", "jkrpczcz"))
+driver = GraphDatabase.driver(uri, auth=("test", "test"))
 
 
 ###############################################################################
@@ -34,8 +34,8 @@ def number_of_protein_interface() :
 def moyenne_nombre_voisin():
     nombre_relation = int(number_of_relation_interface()) / 2
     return (nombre_relation / number_of_protein_interface() )
-    
-        
+
+
 def number_of_relation(tx):
     for record in tx.run("MATCH (n:Protein)-[r:link]-(b:Protein) RETURN count(r)"):
         return record["count(r)"]
@@ -48,14 +48,14 @@ def number_of_relation_interface() :
 ###############################################################################
 # FONCTION moyenne des domaines
 ###############################################################################
-    
+
 def moyenne_domaine():
     compteur_domaine = 0
     liste_proteine = name_of_protein_interface()
     for proteine in liste_proteine:
-        compteur_domaine = compteur_domaine + len(domaine_protein_interface(str(proteine)))   
+        compteur_domaine = compteur_domaine + len(domaine_protein_interface(str(proteine)))
     return compteur_domaine / len(liste_proteine)
-    
+
 
 def name_of_protein(tx):
     result = tx.run("match (n:Protein) return n.name")
@@ -74,7 +74,7 @@ def name_of_protein_interface() :
 def nombre_labelisee(tx):
     for record in tx.run("match (n:Protein) where exists(n.ecn1)  return count(n)"):
         return record["count(n)"]
-    
+
 def nombre_labelisee_interface() :
     with driver.session() as session:
         a = session.read_transaction(nombre_labelisee)
@@ -82,11 +82,6 @@ def nombre_labelisee_interface() :
 
 
 a = nombre_labelisee_interface()
-
-
-
-
-
 
 
 ###############################################################################
@@ -135,3 +130,17 @@ def domaine_protein_interface(name) :
     return a
 
 
+a = moyenne_domaine()
+
+###############################################################################
+# FONCTION nombre de protéines isolées
+###############################################################################
+
+def nombre_isole(tx):
+    for record in tx.run("MATCH (n) WHERE NOT (n)--() RETURN COUNT(n)"):
+        return record[0]
+
+def nombre_isole_interface():
+    with driver.session() as session:
+        a = session.read_transaction(nombre_isole)
+    return a
