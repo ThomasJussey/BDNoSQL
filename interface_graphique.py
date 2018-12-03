@@ -242,7 +242,6 @@ panneau_horizontal_visualisation.pack(side=TOP,padx =3, pady =3)
 
 
 def display_graphe(valeur_proteine_visualisation):
-    print(valeur_proteine_visualisation.get())
     liste_voisin,liste_poids = query.voisin_protein_poids_interface(valeur_proteine_visualisation.get())
     liste_voisin = liste_voisin[:20]
     liste_poids = liste_poids[:20]

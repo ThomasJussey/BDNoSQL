@@ -20,7 +20,6 @@ from plotly.offline import download_plotlyjs, init_notebook_mode,  iplot, plot
 def construire_graphe(name,voisin,poids):
 
     G=nx.Graph()#  G is an empty Graph
-    print(name)
     my_nodes=range(21)
     G.add_nodes_from(my_nodes)
     my_edges=[(0,1), (0,2), (0,3), (0,4), (0,5), (0,6), (0,7),(0,8), (0,9), (0,10), (0,11), (0,12), (0,13), (0,14),(0,15), (0,16), (0,17), (0,18), (0,19), (0,20)]
