@@ -14,14 +14,14 @@ tab_ligne = []
 tab_matrice = []
 
 
-m = len(Entry)
+m = len(Entry) # If the process must be use in the entire data set.
 
-for i in range(0,m):
+for i in range(0,2500):
     EC_Actual = ECColumn[i]
     # For each enzymes that have a EC numbers
-    if EC_Actual == EC_Actual:
+    if EC_Actual != EC_Actual:
         tab_ligne.append(Entry[i])
-        tab_ligne.append(EC_Actual)
+        tab_ligne.append("?")
 
         # Save the domains informations if it has some
         CrossReference_Actual = CrossRefenceColumn[i]
@@ -52,7 +52,7 @@ for i in range(0,m):
         tab_ligne =[]
 
 
-with open('uniprot_domains.csv', mode='w') as relation_file:
+with open('Unlabelled.csv', mode='w') as relation_file:
     relation_writer = csv.writer(relation_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     for i in range(0,len(tab_matrice)):
         relation_writer.writerow(tab_matrice[i])
