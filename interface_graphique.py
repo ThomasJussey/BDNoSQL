@@ -9,6 +9,7 @@ Created on Thu Nov 29 11:41:32 2018
 from tkinter import *
 from tkinter.ttk import Combobox
 import querying as query
+import network_chart as graphe
 
 fenetre = Tk()
 
@@ -101,6 +102,11 @@ label_nombre_isole.pack(side = TOP,anchor="w")
 
 def display_nombre_isole(label_nombre_isole):
     label_nombre_isole.configure(text=str(query.nombre_isole_interface()))
+    
+    
+    
+    
+
 
 
 ###############################################################################
@@ -135,6 +141,7 @@ mylist = Listbox(canvas,width=30, height=120, yscrollcommand=vbar.set)
 panneau_horizontal.add(Checkbutton(fenetre, text="Poids",variable=variable_bouton_cocher))
 panneau_horizontal.add(Button(panneau_horizontal,text ='Calculer',command=lambda :display_voisin(valeur_proteine,variable_bouton_cocher,Frame2,canvas, vbar,mylist), width = 10))
 panneau_horizontal.pack()
+
 
 def display_voisin(valeur_proteine,var_poids,frame,canvas,vbar,mylist):
     #canvas.delete("efface")
@@ -199,7 +206,7 @@ panneau_horizontal_domaine.pack(side=TOP, expand=Y, fill=BOTH, pady=2, padx=2)
 valeur_proteine_domaine = StringVar()
 valeur_proteine_domaine.set("Entrez une protéïne")
 
-canvas_domaine = Canvas(Frame3, width=200, height=600)
+canvas_domaine = Canvas(Frame3, width=200, height=350)
 canvas_domaine.pack(pady=20)
 
 
@@ -220,5 +227,30 @@ def display_domaine(valeur_proteine_domaine,canvas_domaine):
 
 
 
+titre_visualisation_graphe = Label(Frame3, text="visualisation graphe",height = 1, width = 34)
+titre_visualisation_graphe.pack(side = TOP,anchor="w")
+
+valeur_proteine_visualisation = StringVar()
+valeur_proteine_visualisation.set("Entrez une protéïne")
+
+panneau_horizontal_visualisation = PanedWindow(Frame3, orient=HORIZONTAL)
+panneau_horizontal_visualisation.pack(side=TOP, expand=Y, fill=BOTH, pady=2, padx=2)
+
+panneau_horizontal_visualisation.add(Entry(panneau_horizontal_visualisation, textvariable=valeur_proteine_visualisation ,width=15))
+panneau_horizontal_visualisation.add(Button(panneau_horizontal_visualisation,command=lambda :display_graphe(valeur_proteine_visualisation),text ='Construire le graphe', width = 10))
+panneau_horizontal_visualisation.pack(side=TOP,padx =3, pady =3)
+
+
+def display_graphe(valeur_proteine_visualisation):
+    print(valeur_proteine_visualisation.get())
+    liste_voisin,liste_poids = query.voisin_protein_poids_interface(valeur_proteine_visualisation.get())
+    liste_voisin = liste_voisin[:20]
+    liste_poids = liste_poids[:20]
+    graphe.construire_graphe(valeur_proteine_visualisation.get(),liste_voisin,liste_poids)
+    
+    
+    
+    
+    
 
 fenetre.mainloop()
