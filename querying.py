@@ -66,6 +66,27 @@ def name_of_protein_interface() :
         a = session.read_transaction(name_of_protein)
     return a
 
+###############################################################################
+# FONCTION nombre proteine labelisé
+###############################################################################
+
+
+def nombre_labelisee(tx):
+    for record in tx.run("match (n:Protein) where exists(n.ecn1)  return count(n)"):
+        return record["count(n)"]
+    
+def nombre_labelisee_interface() :
+    with driver.session() as session:
+        a = session.read_transaction(nombre_labelisee)
+    return a
+
+
+a = nombre_labelisee_interface()
+
+
+
+
+
 
 
 ###############################################################################
@@ -114,4 +135,3 @@ def domaine_protein_interface(name) :
     return a
 
 
-a = moyenne_domaine()
